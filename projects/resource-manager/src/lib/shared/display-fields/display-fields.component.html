@@ -1,0 +1,97 @@
+<h2 mat-dialog-title>Display Fields</h2>
+<mat-dialog-content class="mat-typography" ngClass="dialog-box-content">
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Level</mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="food">
+        <mat-option value="task"> Task </mat-option>
+        <mat-option value="project"> Project </mat-option>
+        <mat-option value="campaign"> Campaign </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <form *ngIf="selectedValue == 'task'">
+    <section class="example-section" [formGroup]="displayTaskFields">
+      <div ngClass="display-checkboxes">
+        <div>
+          <p><mat-checkbox formControlName="name">Name</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="startDate">Start Date</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="owner">Owner</mat-checkbox></p>
+        </div>
+        <div>
+          <p>
+            <mat-checkbox formControlName="duration">Duration</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="endDate">End Date</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="priority">Priority</mat-checkbox>
+          </p>
+        </div>
+      </div>
+    </section>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" mat-dialog-close mat-button cdkFocusInitial>
+        Apply
+      </button>
+    </mat-dialog-actions>
+  </form>
+  <form *ngIf="selectedValue == 'project'">
+    <section class="example-section" [formGroup]="displayProjectFields">
+      <div ngClass="display-checkboxes">
+        <div>
+          <p><mat-checkbox formControlName="name">Name</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="startDate">Start Date</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="owner">Owner</mat-checkbox></p>
+        </div>
+        <div>
+          <p>
+            <mat-checkbox formControlName="duration">Duration</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="endDate">End Date</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="priority">Priority</mat-checkbox>
+          </p>
+        </div>
+      </div>
+    </section>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" mat-dialog-close mat-button cdkFocusInitial>
+        Apply
+      </button>
+    </mat-dialog-actions>
+  </form>
+  <form *ngIf="selectedValue == 'campaign'">
+    <section class="example-section" [formGroup]="displayCampaignFields">
+      <div ngClass="display-checkboxes">
+        <div>
+          <p><mat-checkbox formControlName="name">Name</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="startDate">Start Date</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="owner">Owner</mat-checkbox></p>
+        </div>
+        <div>
+          <p>
+            <mat-checkbox formControlName="duration">Duration</mat-checkbox>
+          </p>
+          <p><mat-checkbox formControlName="endDate">End Date</mat-checkbox></p>
+          <p>
+            <mat-checkbox formControlName="priority">Priority</mat-checkbox>
+          </p>
+        </div>
+      </div>
+    </section>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" mat-dialog-close mat-button cdkFocusInitial>
+        Apply
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

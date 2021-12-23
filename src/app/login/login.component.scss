@@ -1,0 +1,17 @@
+.login-card {
+  max-width: 400px;
+}
+.main-div {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  display: flex;
+  justify-content: flex-start;
+}

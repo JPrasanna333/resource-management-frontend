@@ -1,0 +1,120 @@
+.header {
+    position: absolute;
+    width: 100vw;
+    height: 117px;
+    left: 0px;
+    top: 0px;
+}
+
+.logo {
+    width: 60px;
+    height: 50px;
+    margin: 5px;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: auto;
+    width: 30%;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.user-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dashboard-heading {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.resource-heading {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    border-bottom: 4px solid #cac22c;
+    line-height: 50px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.arrow-button {
+    outline: none;
+    border: none;
+    background: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.display-fields-button {
+    margin-right: 10px;
+    color: #6f52d7;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.custom-dialog-container .mat-dialog-container {
+    margin: 0px;
+    padding: 0px !important;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-day-field {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type="date"] {
+    width: 50px;
+    border: none;
+    outline: none;
+    // opacity: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    width: 50px;
+    cursor: pointer;
+}

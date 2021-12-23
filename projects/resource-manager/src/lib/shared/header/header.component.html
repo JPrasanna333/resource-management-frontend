@@ -1,0 +1,114 @@
+<mat-toolbar [ngClass]="'toolbar'">
+  <div [ngClass]="'toolbar'">
+    <h1
+      [ngStyle]="{
+        marginRight: '20px',
+        fontFamily: 'Roboto',
+        fontSize: '20px'
+      }"
+    >
+      Resource Management
+    </h1>
+
+    <mat-button-toggle-group
+      name="resource-management"
+      aria-label="Resource Management"
+    >
+      <mat-button-toggle
+        [checked]="true"
+        value="projects"
+        (click)="onToggle('projects')"
+        >Projects</mat-button-toggle
+      >
+      <mat-button-toggle value="resources" (click)="onToggle('resources')" *ngIf="role=='Allocation-Manager' || role=='Resource-Manager'"
+        >Resources</mat-button-toggle
+      >
+      <mat-button-toggle value="allocation " *ngIf="role=='Allocation-Manager'">Allocation</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let chip of filterChips" [removable]="removable"
+        >{{ chip | uppercase }}
+        <button matChipRemove>
+          <mat-icon (click)="removeChips(chip)">cancel</mat-icon>
+        </button>
+      </mat-chip></mat-chip-list
+    >
+  </div>
+
+  <div [ngClass]="'toolbar'">
+    <button
+      [ngClass]="'display-fields-button'"
+      type="button"
+      (click)="openDisplayFields()"
+    >
+      Display Fields
+    </button>
+
+    <input
+      type="date"
+      (change)="onClickToday($event)"
+      [ngStyle]="{ marginRight: '10px' }"
+    />
+    <div style="width: '150px'; text-align: center">
+      <h1 *ngIf="calendarView == 'month'" [ngStyle]="{ marginRight: '10px' }">
+        {{ monthDate | date: "MMMM" }} {{ monthDate.getFullYear() }}
+      </h1>
+      <h1 *ngIf="calendarView == 'week'" [ngStyle]="{ marginRight: '10px' }">
+        {{ weekDate | date: "MMMM" }} {{ weekDate.getFullYear() }}
+      </h1>
+    </div>
+
+    <div [ngClass]="'toolbar'" *ngIf="calendarView == 'month'">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickPreviousMonth()"
+      >
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickNextMonth()"
+      >
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+    <div [ngClass]="'toolbar'" *ngIf="calendarView == 'week'">
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickPreviousWeek()"
+      >
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+      <button
+        type="button"
+        [ngClass]="'arrow-button'"
+        (click)="onClickNextWeek()"
+      >
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+    <mat-button-toggle-group
+      [ngStyle]="{ marginLeft: '10px' }"
+      name="calendar-buttons"
+      aria-label="Calendar Buttons"
+    >
+      <mat-button-toggle
+        [checked]="true"
+        value="month"
+        (click)="onClickCalendarViewButton('month')"
+        >Month</mat-button-toggle
+      >
+      <mat-button-toggle
+        value="week"
+        (click)="onClickCalendarViewButton('week')"
+        >Week</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
+</mat-toolbar>

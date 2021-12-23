@@ -1,0 +1,341 @@
+<div *ngIf="calendarView == 'month'">
+  <div ngClass="style">
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'projects'">
+      <p [ngClass]="'calendar-info-text'">Refine Search By</p>
+      <p>
+        <mat-icon> unfold_less</mat-icon>
+      </p>
+    </div>
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'resources'">
+      <mat-form-field appearance="outline" ngClass="search-bar">
+        <mat-label>Search Employees</mat-label>
+        <input
+          matInput
+          placeholder="Enter Employee Name"
+          [(ngModel)]="searchText"
+        />
+        <mat-icon matPrefix>people</mat-icon>
+      </mat-form-field>
+    </div>
+    <div ngClass="month-dates-container">
+      <div
+        [ngClass]="formatDate(day) != currentDate ? 'date' : 'current-date'"
+        *ngFor="let day of currentMonthDates"
+      >
+        <div
+          *ngIf="formatDate(day) == currentDate"
+          ngClass="vertical-line"
+          [ngStyle]="{ marginLeft: VerticalTimeLeftSpace() }"
+        ></div>
+        <p>{{ day | date: "EEE" }}</p>
+        <p>{{ day | date: "d" }}</p>
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
+    <lib-filter
+      [calendarView]="calendarView"
+      [weekProjects]="currentWeekProjects"
+      [monthProjects]="currentMonthProjects"
+    ></lib-filter>
+    <div [ngClass]="'projects-container'">
+      <mat-accordion *ngFor="let campaign of currentMonthProjectsCopy">
+        <mat-expansion-panel
+          hideToggle
+          (opened)="campaignPanelOpenState = true"
+          (closed)="campaignPanelOpenState = false"
+          [ngClass]="'campaign-content'"
+          [ngStyle]="{
+            'margin-left': monthLeftSpace(campaign.startDate),
+            width: monthWidth(campaign.startDate, campaign.endDate),
+            position: 'relative',
+            'margin-bottom': '15px'
+          }"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
+            </mat-panel-title>
+            <mat-panel-description [ngClass]="'campaign-card'">
+              <div [ngClass]="'campaign-card'">
+                <p [ngStyle]="{ 'margin-right': '15px' }">
+                  {{ campaign.startDate | date: "MMM d" }} -
+                  {{ campaign.endDate | date: "MMM d" }}
+                </p>
+                <p>{{ campaign.campaignName }}</p>
+              </div>
+              <p>{{ campaign.priority }} PRIORITY</p>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-accordion *ngFor="let project of campaign.projects">
+              <mat-expansion-panel
+                hideToggle
+                (opened)="projectPanelOpenState = true"
+                (closed)="projectPanelOpenState = false"
+                [ngStyle]="{ 'margin-bottom': '10px' }"
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>navigate_next</mat-icon>
+                    {{ project.projectName }}</mat-panel-title
+                  >
+                  <mat-panel-description [ngClass]="'campaign-card'">
+                    <div [ngClass]="'campaign-card'">
+                      <p [ngStyle]="{ 'margin-right': '15px' }">
+                        {{ project.startDate | date: "MMM d" }} -
+                        {{ project.endDate | date: "MMM d" }}
+                      </p>
+                      <p>{{ project.projectName }}</p>
+                    </div>
+                    <p>{{ project.priority }} PRIORITY</p>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div [ngClass]="'task-container'">
+                  <div *ngFor="let task of project.tasks">
+                    <mat-card
+                      [ngClass]="'task-card'"
+                      (click)="openEmployeeDialog()"
+                    >
+                      <mat-card-content [ngClass]="'campaign-card'">
+                        <div>
+                          <p>{{ task.taskName }}</p>
+                          <p>{{ task.duration }} Hrs</p>
+                          <p>
+                            {{ task.startDate | date: "MMM d" }} -
+                            {{ task.endDate | date: "MMM d" }}
+                          </p>
+                        </div>
+                        <div [ngClass]="'task-card-content'">
+                          <p>{{ task.priority }}</p>
+                          <p *ngIf="task.resource != null">
+                            {{ task.resource.resourceName }}
+                          </p>
+                        </div>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
+    <div ngClass="all-resources-container">
+      <div
+        ngClass="resource-container"
+        *ngFor="let resource of resources | filter: searchText"
+      >
+        <mat-card ngClass="resource-info-card" (click)="openTaskAllocation()">
+          <img
+            [src]="resource.resourceImage"
+            ngClass="resource-image"
+            [alt]="resource.resourceName"
+          />
+          <div>
+            <p>{{ resource.resourceName }}</p>
+            <p>{{ resource.resourceType }}</p>
+          </div>
+        </mat-card>
+        <div ngClass="task-container">
+          <mat-card ngClass="resource-card">
+            <p>{{ resource.availability.availableStatus }}</p>
+            <p>{{ resource.availability.availableHours }} hours a day</p>
+          </mat-card>
+          <mat-card ngClass="task-card" *ngFor="let task of resource.taskList">
+            <p>{{ task.taskName }}</p>
+            <p>{{ task.duration }} Hrs</p>
+            <p>
+              {{ task.project.projectName }} -
+              {{ task.project.campaign.campaignName }}
+            </p>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      [length]="this.resourcesResponse.totalElements"
+      [pageSize]="this.resourcesResponse.size"
+      [pageIndex]="this.resourcesResponse.number"
+      (page)="onChangePaginator($event)"
+      aria-label="Select page"
+      ngClass="paginator"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="calendarView == 'week'">
+  <div ngClass="style">
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'projects'">
+      <p [ngClass]="'calendar-info-text'">Refine Search By</p>
+      <p>
+        <mat-icon> unfold_less</mat-icon>
+      </p>
+    </div>
+    <div [ngClass]="'calendar-info-container'" *ngIf="tabValue == 'resources'">
+      <mat-form-field appearance="outline" ngClass="search-bar">
+        <mat-label>Search Employees</mat-label>
+        <input matInput placeholder="Enter Employee Name" />
+        <mat-icon matPrefix>people</mat-icon>
+      </mat-form-field>
+    </div>
+    <div ngClass="week-dates-container">
+      <div
+        [ngClass]="
+          formatDate(day) != currentDate ? 'week-date' : 'week-current-date'
+        "
+        *ngFor="let day of currentWeekDates"
+      >
+        <div
+          *ngIf="formatDate(day) == currentDate"
+          ngClass="vertical-line"
+          [ngStyle]="{ marginLeft: verticalTimeWeekLeftSpace() }"
+        ></div>
+        <p>{{ day | date: "EEEE" }}</p>
+        <p>{{ day | date: "d" }}-{{ day | date: "MMM" }}</p>
+        <hr />
+      </div>
+    </div>
+  </div>
+  <div ngClass="filter-projects-container" *ngIf="tabValue == 'projects'">
+    <lib-filter
+      [calendarView]="calendarView"
+      [weekProjects]="currentWeekProjects"
+      [monthProjects]="currentMonthProjects"
+    ></lib-filter>
+    <div [ngClass]="'projects-container'">
+      <mat-accordion
+        *ngFor="let campaign of currentWeekProjectsCopy"
+        [ngClass]="'campaign-content'"
+      >
+        <mat-expansion-panel
+          hideToggle
+          (opened)="campaignPanelOpenState = true"
+          (closed)="campaignPanelOpenState = false"
+          [ngStyle]="{
+            'margin-left': weekLeftSpace(campaign.startDate),
+            width: weekWidth(campaign.startDate, campaign.endDate),
+            position: 'relative',
+            'margin-bottom': '10px'
+          }"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>navigate_next</mat-icon> {{ campaign.campaignName }}
+            </mat-panel-title>
+            <mat-panel-description [ngClass]="'campaign-card'">
+              <div [ngClass]="'campaign-card'">
+                <p [ngStyle]="{ 'margin-right': '15px' }">
+                  {{ campaign.startDate | date: "MMM d" }} -
+                  {{ campaign.endDate | date: "MMM d" }}
+                </p>
+                <p>{{ campaign.campaignName }}</p>
+              </div>
+              <p>{{ campaign.priority }} PRIORITY</p>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-accordion *ngFor="let project of campaign.projects">
+              <mat-expansion-panel
+                hideToggle
+                (opened)="projectPanelOpenState = true"
+                (closed)="projectPanelOpenState = false"
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>navigate_next</mat-icon>
+                    {{ project.projectName }}</mat-panel-title
+                  >
+                  <mat-panel-description [ngClass]="'campaign-card'">
+                    <div [ngClass]="'campaign-card'">
+                      <p [ngStyle]="{ 'margin-right': '15px' }">
+                        {{ project.startDate | date: "MMM d" }} -
+                        {{ project.endDate | date: "MMM d" }}
+                      </p>
+                      <p>{{ project.projectName }}</p>
+                    </div>
+                    <p>{{ project.priority }} PRIORITY</p>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div [ngClass]="'task-container'">
+                  <div *ngFor="let task of project.tasks">
+                    <mat-card
+                      [ngClass]="'task-card'"
+                      (click)="openEmployeeDialog()"
+                    >
+                      <mat-card-content [ngClass]="'campaign-card'">
+                        <div>
+                          <p>{{ task.taskName }}</p>
+                          <p>{{ task.duration }} Hrs</p>
+                          <p>
+                            {{ task.startDate | date: "MMM d" }} -
+                            {{ task.endDate | date: "MMM d" }}
+                          </p>
+                        </div>
+                        <div [ngClass]="'task-card-content'">
+                          <p>{{ task.priority }}</p>
+                          <p>{{ task.taskName }}</p>
+                        </div>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div ngClass="filter-resources-container" *ngIf="tabValue == 'resources'">
+    <div ngClass="all-resources-container">
+      <div
+        ngClass="resource-container"
+        *ngFor="let resource of resources | filter: searchText"
+      >
+        <mat-card ngClass="resource-info-card" (click)="openTaskAllocation()">
+          <img
+            [src]="resource.resourceImage"
+            ngClass="resource-image"
+            [alt]="resource.resourceName"
+          />
+          <div>
+            <p>{{ resource.resourceName }}</p>
+            <p>{{ resource.resourceType }}</p>
+          </div>
+        </mat-card>
+        <div ngClass="task-container">
+          <mat-card ngClass="resource-card">
+            <p>{{ resource.availability.availableStatus }}</p>
+            <p>{{ resource.availability.availableHours }} hours a day</p>
+          </mat-card>
+          <mat-card ngClass="task-card" *ngFor="let task of resource.taskList">
+            <p>{{ task.taskName }}</p>
+            <p>{{ task.duration }} Hrs</p>
+            <p>
+              {{ task.project.projectName }} -
+              {{ task.project.campaign.campaignName }}
+            </p>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      [length]="this.resourcesResponse.totalElements"
+      [pageSize]="this.resourcesResponse.size"
+      [pageIndex]="this.resourcesResponse.number"
+      (page)="onChangePaginator($event)"
+      aria-label="Select page"
+      ngClass="paginator"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,227 @@
+<div [ngClass]="'filter-container '">
+  <div [ngClass]="'checkbox-container'">
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Priority </mat-panel-title>
+      </mat-expansion-panel-header>
+      <section [formGroup]="priorityForm">
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="high"
+            (change)="onChangePriority(priorityForm)"
+            >High</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthPriorityCount.high
+                : weekPriorityCount.high
+            }}
+          </p>
+        </div>
+
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="low"
+            (change)="onChangePriority(priorityForm)"
+            >Low</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthPriorityCount.low
+                : weekPriorityCount.low
+            }}
+          </p>
+        </div>
+
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="medium"
+            (change)="onChangePriority(priorityForm)"
+            >Medium</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthPriorityCount.medium
+                : weekPriorityCount.medium
+            }}
+          </p>
+        </div>
+      </section>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Region </mat-panel-title>
+      </mat-expansion-panel-header>
+      <section [formGroup]="regionForm">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+              matInput
+              type="search"
+              placeholder="Search Region"
+              (input)="search($event)"
+            />
+          </mat-form-field>
+          <div
+            [ngClass]="'filter-count-container'"
+            *ngFor="let region of regions"
+          >
+            <mat-checkbox
+              [formControlName]="region"
+              (change)="onChangeRegion(regionForm)"
+              >{{ region }}
+            </mat-checkbox>
+            <p>
+              {{
+                calendarView == "month"
+                  ? monthRegionCount[region]
+                  : weekRegionCount[region]
+              }}
+            </p>
+          </div>
+        </div>
+      </section>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Status </mat-panel-title>
+      </mat-expansion-panel-header>
+      <section [formGroup]="statusForm">
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="defined"
+            (change)="onChangeStatus(statusForm)"
+            >Defined</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthStatusCount.defined
+                : weekStatusCount.defined
+            }}
+          </p>
+        </div>
+
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="in_progress"
+            (change)="onChangeStatus(statusForm)"
+            >In Progress</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthStatusCount.in_progress
+                : weekStatusCount.in_progress
+            }}
+          </p>
+        </div>
+
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="completed"
+            (change)="onChangeStatus(statusForm)"
+            >Completed</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthStatusCount.completed
+                : weekStatusCount.completed
+            }}
+          </p>
+        </div>
+
+        <div [ngClass]="'filter-count-container'">
+          <mat-checkbox
+            formControlName="on_hold"
+            (change)="onChangeStatus(statusForm)"
+            >OnHold</mat-checkbox
+          >
+          <p>
+            {{
+              calendarView == "month"
+                ? monthStatusCount.on_hold
+                : weekStatusCount.on_hold
+            }}
+          </p>
+        </div>
+      </section>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Category Metadata </mat-panel-title>
+      </mat-expansion-panel-header>
+      <section [formGroup]="categoryForm">
+        <p>
+          <mat-checkbox formControlName="na">NA</mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="qa">QA</mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox formControlName="series">Series</mat-checkbox>
+        </p>
+      </section>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Due Date</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="fill" [formGroup]="startDateForm">
+        <mat-label>Choose Start Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startDate"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill" [formGroup]="endDateForm">
+        <mat-label>Choose End Date</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="rangeForm" [rangePicker]="range">
+          <input
+            matStartDate
+            placeholder="Start date"
+            formControlName="start"
+          />
+          <input matEndDate placeholder="End date" formControlName="end" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="range"></mat-datepicker-toggle>
+        <mat-date-range-picker #range></mat-date-range-picker>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </div>
+</div>

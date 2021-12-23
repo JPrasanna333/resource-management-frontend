@@ -1,0 +1,27 @@
+.filter-container {
+  width: 14.9vw;
+  height: 562px;
+  background-color: #fafafa;
+  border: solid 1px rgb(194, 193, 193);
+}
+
+.checkbox-container {
+  height: 570px;
+  overflow: scroll;
+}
+
+div::-webkit-scrollbar {
+  width: 0.2em;
+  border-radius: 10px;
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.filter-count-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

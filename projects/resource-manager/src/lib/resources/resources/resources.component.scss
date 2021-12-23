@@ -1,0 +1,14 @@
+.style {
+  display: flex;
+  flex-direction: row;
+}
+.calendar-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #728192;
+  padding: 10px;
+  width: 13.5vw;
+  height: 44px;
+  border: solid 1px rgb(194, 193, 193);
+}

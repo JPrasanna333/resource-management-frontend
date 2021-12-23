@@ -1,0 +1,53 @@
+.each-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.employee-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 112px;
+}
+
+.employee-title {
+  font-family: Roboto Medium;
+  color: #2d3a48;
+  letter-spacing: 0.2px;
+  font-size: 18px;
+}
+
+.recommended-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.label-name {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  margin-right: 7px;
+}
+.label-margin {
+  margin-right: 30px;
+}
+.description-width {
+  width: 100%;
+}
+
+.form-container {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 120px;
+}
+
+.button {
+  margin-right: 15px;
+}

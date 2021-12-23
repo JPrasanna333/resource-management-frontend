@@ -1,0 +1,48 @@
+{
+  "name": "resource-management-workspace",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "serve:app": "ng serve",
+    "build": "ng build",
+    "start": "concurrently npm:serve:*",
+    "serve:lib": "ng build  --watch  --configuration development --project=resource-manager",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.0.1",
+    "@angular/cdk": "~12.2.13",
+    "@angular/common": "~12.0.1",
+    "@angular/compiler": "~12.0.1",
+    "@angular/core": "~12.0.1",
+    "@angular/forms": "~12.0.1",
+    "@angular/material": "~12.2.13",
+    "@angular/platform-browser": "~12.0.1",
+    "@angular/platform-browser-dynamic": "~12.0.1",
+    "@angular/router": "~12.0.1",
+    "@mui/icons-material": "^5.1.1",
+    "date-fns": "^2.26.0",
+    "ng2-search-filter": "^0.5.1",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.1.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.0.1",
+    "@angular/cli": "~12.0.1",
+    "@angular/compiler-cli": "~12.0.1",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
+    "concurrently": "^6.4.0",
+    "jasmine-core": "~3.7.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^12.0.0",
+    "typescript": "~4.2.3"
+  }
+}

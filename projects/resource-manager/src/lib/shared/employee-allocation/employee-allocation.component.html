@@ -1,0 +1,182 @@
+<mat-toolbar [ngClass]="'employee-title-container'" mat-dialog-title>
+  <div>
+    <h1 [ngClass]="'employee-title'">Task Alpha - Employee Allocation</h1>
+  </div>
+  <div>
+    <button
+      mat-dialog-close
+      mat-icon-button
+      color="primary"
+      aria-label="close task allocation"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<form>
+  <div mat-dialog-content class="mat-typography">
+    <section
+      class="example-section"
+      [formGroup]="resourceAllocationForm"
+      [ngClass]="'form-container'"
+    >
+      <div>
+        <div [ngClass]="'recommended-label'">
+          <p [ngClass]="'label-name'">Recommended Tasks</p>
+          <mat-icon> info_outline </mat-icon>
+        </div>
+        <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+          <mat-label>Select a Resource</mat-label>
+          <mat-select formControlName="resource">
+            <mat-option *ngFor="let resource of resources" value="resource">
+              {{ resource }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Allocation</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Select</mat-label>
+            <mat-select name="allocation" formControlName="allocation">
+              <mat-option *ngFor="let resource of resources" value="resource">
+                {{ resource }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Role</p>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter Role</mat-label>
+            <input matInput formControlName="role" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Status</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Select</mat-label>
+            <mat-select name="status" formControlName="status">
+              <mat-option *ngFor="let status of statuses" value="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Priority</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Select</mat-label>
+            <mat-select name="priority" formControlName="priority">
+              <mat-option *ngFor="let priority of priorities" value="priority">
+                {{ priority }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Planned Start Date</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDate"
+              formControlName="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Planned End Date</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDate"
+              formControlName="endDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div [ngClass]="'each-row-container'">
+        <div>
+          <p [ngClass]="'label-name'">Actual Start Date</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="actualStartDate"
+              formControlName="actualStartDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="actualStartDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #actualStartDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <p [ngClass]="'label-name'">Actual End Date</p>
+          <mat-form-field appearance="outline" [ngClass]="'label-margin'">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="actualEndDate"
+              formControlName="actualEndDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="actualEndDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #actualEndDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <p [ngClass]="'label-name'">Description</p>
+        <mat-form-field appearance="outline" [ngClass]="'description-width'">
+          <textarea
+            matInput
+            placeholder="Items to be completed "
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </section>
+  </div>
+  <div mat-dialog-actions>
+    <mat-toolbar [ngClass]="'footer-container'">
+      <button
+        mat-stroked-button
+        mat-dialog-close
+        color="primary"
+        [ngClass]="'button'"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        mat-dialog-close
+        cdkFocusInitial
+      >
+        Save
+      </button>
+    </mat-toolbar>
+  </div>
+</form>

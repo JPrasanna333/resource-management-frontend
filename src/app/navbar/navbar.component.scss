@@ -1,0 +1,48 @@
+.logo {
+  width: 60px;
+  height: 50px;
+  margin: 5px;
+}
+
+.dashboard-heading {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.resource-heading {
+  margin-right: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+  border-bottom: 4px solid #cac22c;
+  line-height: 50px;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: auto;
+  width: 30%;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 30%;
+}
+
+.user-image-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}

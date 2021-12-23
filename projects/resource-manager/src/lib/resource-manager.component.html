@@ -1,0 +1,9 @@
+<lib-header [role]="role" ></lib-header>
+<lib-projects
+  *ngIf="tabValue == 'projects'"
+  [projects]="projects"
+></lib-projects>
+<lib-resources
+  *ngIf="tabValue == 'resources'"
+  [resources]="resources"
+></lib-resources>

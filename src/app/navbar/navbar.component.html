@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <div>
+    <img src="https://www.otsolex.com/hubfs/acheron.png" [ngClass]="'logo'" />
+  </div>
+  <h1 [ngClass]="'dashboard-heading'">Dashboard</h1>
+  <h1 [ngClass]="'resource-heading'">Resource Management</h1>
+  <button (click)="logout()">logout</button>
+  <div [ngClass]="'menu-container'">
+    <div [ngClass]="'icon-container'">
+      <mat-icon>search</mat-icon>
+      <mat-icon>notifications_none</mat-icon>
+      <mat-icon>menu</mat-icon>
+    </div>
+    <div [ngClass]="'user-image-container'">
+      <img
+        src="https://res.cloudinary.com/deri2awff/image/upload/v1638877090/img_snytos.jpg"
+        [ngClass]="'user-image'"
+      />
+      <span>Elena</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </div>
+  </div>
+</mat-toolbar>

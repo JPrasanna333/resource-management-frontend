@@ -1,0 +1,64 @@
+.task-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.task-title {
+  font-family: Roboto Medium;
+  color: #2d3a48;
+  letter-spacing: 0.2px;
+  font-size: 18px;
+}
+
+.available-hrs {
+  color: #728192;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.form-container {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.recommended-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.label-name {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  margin-right: 7px;
+}
+.each-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.label-width {
+  width: 45%;
+}
+
+.label-margin {
+  margin-right: 30px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 100px;
+}
+
+.button {
+  margin-right: 15px;
+}
+
+.description-width {
+  width: 100%;
+}
