@@ -5,11 +5,14 @@ import { ResourceComponent } from './resource/resource.component';
 import { LoginComponent } from './login/login.component';
 import { LoginAuthService } from './services/login/login-auth.service';
 import { ContentComponent } from './content/content.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: 'projects', component: ProjectComponent },
   { path: 'resource', component: ResourceComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+
   {
     path: 'content',
     component: ContentComponent,

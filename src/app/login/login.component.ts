@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login = (loginForm: NgForm) => {
+  onLogin = (loginForm: NgForm) => {
     this._loginService.login(loginForm.value).subscribe(
       (response: any) => {
         console.log(response);
@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit {
 
         this.role = response.user.role[0].roleName;
         this._loginService.onChangeRole(this.role);
-        
+
         if (localStorage.getItem('token') != null) {
           console.log(localStorage.getItem('token'));
           this._router.navigate(['/content']);
         }
       },
       (error) => {
-        console.log(error);
+        alert('Invalid Username/password');
       }
     );
   };

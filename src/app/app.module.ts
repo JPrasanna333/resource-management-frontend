@@ -7,17 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { ResourceComponent } from './resource/resource.component';
 import { ProjectComponent } from './project/project.component';
 import { ContentComponent } from './content/content.component';
+import { RegisterComponent } from './register/register.component';
+import { InterceptorService } from './services/login/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ContentComponent } from './content/content.component';
     ResourceComponent,
     ProjectComponent,
     ContentComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +44,15 @@ import { ContentComponent } from './content/content.component';
     MatInputModule,
     RouterModule,
     AppRoutingModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

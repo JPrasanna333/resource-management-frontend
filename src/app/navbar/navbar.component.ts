@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {}
 
   logout = () => {
-    console.log('inside logout');
+    // console.log('inside logout');
     localStorage.removeItem('token');
     this._router.navigate(['/login']);
   };
